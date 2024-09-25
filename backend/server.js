@@ -4,6 +4,7 @@ import "dotenv/config";
 import connectDB from "./config/db.js";
 import connectCloudinary from "./config/cloudinary.js";
 import userRouter from "./routes/userRoute.js";
+import productRouter from "./routes/productRoute.js";
 
 const app = express();
 const port = process.env.port || 8000;
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/user", userRouter);
+app.use("/api/product", productRouter);
 
 app.listen(port, () => {
   console.log("server is Runing at port: ", port);

@@ -3,12 +3,39 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import userModel from "../models/userModel.js";
 
+// {
+//   "name": "Mahadi Hassan Siam Pathan",
+//   "email":"siampathan005@gmail.com",
+//   "password": "SiaMp7ThAn"
+// }
+
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET);
 };
 
 //Route for user login
-const loginUser = async (req, res) => {};
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      res.json({ success: false, message: "User doesn't exists." });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (isMatch) {
+      const token = createToken(user._id);
+      res.json({ success: true, token });
+    } else {
+      res.json({ sucess: false, message: "Invild credentials" });
+    }
+  } catch (err) {
+    console.log(err.message);
+    res.json({ sucess: false, message: err.message });
+  }
+};
 
 //Route for user register
 const registerUser = async (req, res) => {
