@@ -80,6 +80,38 @@ const registerUser = async (req, res) => {
 };
 
 //Route for admin login
-const adminLogin = async (req, res) => {};
+const adminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Check for valid admin credentials
+    if (
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      // Create a payload with meaningful claims
+      const payload = {
+        email: email,
+        isAdmin: true,
+      };
+
+      // Sign the token with the payload
+      const token = jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: "3h",
+      });
+
+      return res.status(200).json({ success: true, token });
+    } else {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid credentials." });
+    }
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal server error." });
+  }
+};
 
 export { loginUser, registerUser, adminLogin };
