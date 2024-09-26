@@ -39,7 +39,7 @@ const adminAuth = (req, res, next) => {
     if (!token) {
       return res.status(401).json({
         success: false,
-        message: "Not Authorized try again.",
+        message: "Condition Not Authorized try again.",
       });
     }
 
