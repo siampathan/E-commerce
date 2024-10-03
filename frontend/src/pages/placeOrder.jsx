@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { assets } from "../assets/assets";
+import { ShopContext } from "../context/shopContext";
+import { toast } from "react-toastify";
 import CartTotal from "../components/cartTotal";
 import Title from "../components/title";
-import { ShopContext } from "../context/shopContext";
 import axios from "axios";
-import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
@@ -90,7 +90,8 @@ const PlaceOrder = () => {
           break;
       }
     } catch (err) {
-      console.log("Error in submitHandler:", err.message); // Log any errors
+      console.log(err);
+      toast.error(err.message);
     }
   };
 

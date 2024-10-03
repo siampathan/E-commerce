@@ -31,10 +31,25 @@ const placeOrder = async (req, res) => {
 const placeOrderStrip = (req, res) => {};
 
 //all orders Data for admin panel
-const allOrders = (req, res) => {};
+const allOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({});
+    res.json({ success: true, orders });
+  } catch (err) {
+    res.json({ success: false, message: err.message });
+  }
+};
 
 //user Order data for Frontend
-const userOrders = (req, res) => {};
+const userOrders = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const orders = await orderModel.find({ userId });
+    res.json({ success: true, orders });
+  } catch (err) {
+    res.json({ success: false, message: err.message });
+  }
+};
 
 //update order status for Admin
 const updateStatus = (req, res) => {};
