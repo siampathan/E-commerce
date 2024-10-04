@@ -7,7 +7,9 @@ import {
   allOrders,
   userOrders,
   updateStatus,
+  verifyStripe,
 } from "../controllers/orderControllers.js";
+import authUser from "../middleware/userAuth.js";
 
 const orderRouter = express.Router();
 
@@ -17,9 +19,12 @@ orderRouter.post("/status", adminAuth, updateStatus);
 
 //payment Feature
 orderRouter.post("/place", userAuth, placeOrder);
-orderRouter.post("/strip", userAuth, placeOrderStrip);
+orderRouter.post("/stripe", userAuth, placeOrderStrip);
 
 //user Feature
 orderRouter.post("/userorders", userAuth, userOrders);
+
+//verify Route
+orderRouter.post("/verifystripe", authUser, verifyStripe);
 
 export default orderRouter;

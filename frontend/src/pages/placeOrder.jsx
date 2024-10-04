@@ -86,6 +86,28 @@ const PlaceOrder = () => {
             console.log(response.data.message);
           }
           break;
+
+        case "stripe":
+          try {
+            const responseStripe = await axios.post(
+              `${backendUrl}/api/order/stripe`,
+              orderData,
+              { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            console.log("Stripe response:", responseStripe.data);
+
+            if (responseStripe.data && responseStripe.data.success) {
+              const { session_url } = responseStripe.data;
+              window.location.replace(session_url);
+            } else {
+              toast.error(responseStripe.data.message);
+            }
+          } catch (error) {
+            console.error("Error during Stripe payment:", error.message);
+            toast.error("Failed to initiate payment. Please try again later.");
+          }
+          break;
         default:
           break;
       }
@@ -94,6 +116,8 @@ const PlaceOrder = () => {
       toast.error(err.message);
     }
   };
+
+  console.log(method);
 
   return (
     <form

@@ -31,17 +31,6 @@ const addProduct = async (req, res) => {
         return result.secure_url;
       })
     );
-
-    // console.log(
-    //   name,
-    //   description,
-    //   price,
-    //   category,
-    //   subCategory,
-    //   sizes,
-    //   bestSeller
-    // );
-    // console.log(imagesUrl);
     const productData = {
       name,
       description,
@@ -62,6 +51,66 @@ const addProduct = async (req, res) => {
   } catch (err) {
     console.log(err.message);
     res.json({ sucess: false, message: err.message });
+  }
+};
+
+const updateProduct = async (req, res) => {
+  try {
+    const {
+      productId,
+      name,
+      description,
+      price,
+      category,
+      subCategory,
+      sizes,
+      bestSeller,
+    } = req.body;
+
+    // Find the product by ID
+    const product = await productModel.findById(productId);
+    if (!product) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Product not found." });
+    }
+
+    // Update fields with new values
+    if (name) product.name = name;
+    if (description) product.description = description;
+    if (price) product.price = Number(price);
+    if (category) product.category = category;
+    if (subCategory) product.subCategory = subCategory;
+    if (sizes) product.sizes = JSON.parse(sizes);
+    if (bestSeller) product.bestSeller = bestSeller === "true";
+
+    // Handle file uploads for images
+    const images = [];
+    const imageKeys = ["image1", "image2", "image3", "image4"];
+
+    for (const key of imageKeys) {
+      const file = req.files[key] && req.files[key][0];
+      if (file) {
+        // Upload new image and get URL
+        let result = await cloudinary.uploader.upload(file.path, {
+          resource_type: "image",
+        });
+        images.push(result.secure_url);
+      }
+    }
+
+    // If images were uploaded, update the product's images
+    if (images.length > 0) {
+      product.image = images; // You can choose to append or replace the existing images
+    }
+
+    // Save the updated product
+    await product.save();
+
+    res.json({ success: true, message: "Product updated successfully." });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
@@ -100,4 +149,10 @@ const singleProduct = async (req, res) => {
   }
 };
 
-export { addProduct, listProducts, removeProduct, singleProduct };
+export {
+  addProduct,
+  updateProduct,
+  listProducts,
+  removeProduct,
+  singleProduct,
+};
