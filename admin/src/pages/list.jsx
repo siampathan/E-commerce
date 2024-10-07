@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { backendUrl, currency } from "../App";
 import { toast } from "react-toastify";
 
@@ -70,11 +71,9 @@ const List = ({ token }) => {
               <p>
                 {currency} {item.price}
               </p>
-              <p
-                onClick={() => removeProduct(item._id)}
-                className="text-right md:text-center cursor-pointer text-lg"
-              >
-                X
+              <p className="flex gap-x-4 text-right md:text-center cursor-pointer text-lg">
+                <Link to={`/update/${item._id}`}>Ed</Link>
+                <span onClick={() => removeProduct(item._id)}>X</span>
               </p>
             </div>
           );

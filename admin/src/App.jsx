@@ -4,6 +4,7 @@ import Sidebar from "./components/sidebar";
 import Add from "./pages/add";
 import List from "./pages/list";
 import Orders from "./pages/orders";
+import Update from "./pages/update";
 import Login from "./components/login";
 
 import { Routes, Route } from "react-router-dom";
@@ -38,6 +39,10 @@ const App = () => {
                 <Route path="/add" element={<Add token={token} />} />
                 <Route path="/list" element={<List token={token} />} />
                 <Route path="/orders" element={<Orders token={token} />} />
+                <Route
+                  path="/update/:productId"
+                  element={<Update token={token} />}
+                />
               </Routes>
             </div>
           </div>

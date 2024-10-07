@@ -56,8 +56,8 @@ const addProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
+    const productId = req.params.productId;
     const {
-      productId,
       name,
       description,
       price,
@@ -137,15 +137,34 @@ const removeProduct = async (req, res) => {
 };
 
 //single product info
+// const singleProduct = async (req, res) => {
+//   try {
+//     const { productId } = req.body;
+//     const product = await productModel.findById(productId);
+
+//     res.json({ success: true, product });
+//   } catch (err) {
+//     console.log(err);
+//     res.json({ sucess: false, message: err.message });
+//   }
+// };
 const singleProduct = async (req, res) => {
   try {
-    const { productId } = req.body;
-    const product = await productModel.findById(productId);
+    // Use Mongoose's findById method to find the product by its ID
+    const product = await productModel.findById(req.params.productId);
 
+    // Check if the product was found
+    if (!product) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Product not found" });
+    }
+
+    // Return the found product
     res.json({ success: true, product });
   } catch (err) {
     console.log(err);
-    res.json({ sucess: false, message: err.message });
+    res.status(500).json({ success: false, message: err.message }); // Return error response
   }
 };
 
