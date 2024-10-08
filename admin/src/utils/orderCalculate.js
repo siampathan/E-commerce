@@ -21,7 +21,10 @@ export const totalQuantity = (orders, category) => {
 export const calculatePrice = (filteredOrders, gender) => {
   return filteredOrders.reduce((total, order) => {
     const menItems = order.items.filter((item) => item.category === gender);
-    const priceSum = menItems.reduce((sum, item) => sum + item.price, 0);
+    const priceSum = menItems.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
     return total + priceSum;
   }, 0);
 };

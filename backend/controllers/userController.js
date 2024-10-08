@@ -79,6 +79,17 @@ const registerUser = async (req, res) => {
   }
 };
 
+//user List
+const userList = async (req, res) => {
+  try {
+    const userList = await userModel.find({});
+    res.json({ success: true, userList });
+  } catch (err) {
+    console.log(err);
+    res.json({ sucess: false, message: err.message });
+  }
+};
+
 //Route for admin login
 const adminLogin = async (req, res) => {
   try {
@@ -114,4 +125,4 @@ const adminLogin = async (req, res) => {
   }
 };
 
-export { loginUser, registerUser, adminLogin };
+export { loginUser, userList, registerUser, adminLogin };

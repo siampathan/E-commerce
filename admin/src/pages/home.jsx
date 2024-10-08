@@ -18,6 +18,7 @@ function Home({ token }) {
   const [menSell, setMenSell] = useState(0);
   const [womenSell, setWomenSell] = useState(0);
   const [kidsSell, setKidsSell] = useState(0);
+  const [sell, setTotalSell] = useState(0);
 
   const [delivered, setDelivered] = useState({ Men: 0, Women: 0, Kids: 0 });
 
@@ -81,9 +82,12 @@ function Home({ token }) {
           Kids: totalKidsDelivered,
         });
 
+        const totalAmount = totalMenSell + totalWomenSell + totalKidsSell;
+
         setMenSell(totalMenSell);
         setWomenSell(totalWomenSell);
         setKidsSell(totalKidsSell);
+        setTotalSell(totalAmount);
       } else {
         toast.error(response.data.message);
       }
@@ -118,6 +122,7 @@ function Home({ token }) {
           <b> MEN TOTAL SELL : {menSell}$</b>
           <b> WOEN TOTAL SELL : {womenSell}$</b>
           <b> KIDS TOTAL SELL : {kidsSell} $</b>
+          <b>Sum Of Toal: {sell} $</b>
         </div>
         <div className="border px-8 md:px-8 py-8 sm:py-10 flex flex-col gap-5 ">
           <PieChartDiagram delivered={delivered} />
