@@ -82,6 +82,8 @@ const Collection = () => {
     sortProducts();
   }, [sortType]);
 
+  console.log(products);
+
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
       {/* Filter Option */}
@@ -158,7 +160,7 @@ const Collection = () => {
                 type="checkbox"
                 className="w-3"
                 onChange={toggleSubCategory}
-                value={"Bottomwear"}
+                value={"BottomWear"}
               />
               Bottomwear
             </p>

@@ -23,7 +23,6 @@ const PlaceOrder = () => {
     firstName: "",
     lastName: "",
     email: "",
-    street: "",
     city: "",
     state: "",
     zipcode: "",
@@ -58,8 +57,6 @@ const PlaceOrder = () => {
           }
         }
       }
-
-      console.log(orderItems);
 
       let orderData = {
         address: formData,
@@ -158,15 +155,6 @@ const PlaceOrder = () => {
           className="border border-gray-300 rounded py-1.5 px-1.5 w-full"
           placeholder="Email address"
         />
-        <input
-          required
-          type="text"
-          onChange={onChngeHandler}
-          name="street"
-          value={formData.street}
-          className="border border-gray-300 rounded py-1.5 px-1.5 w-full"
-          placeholder="Street"
-        />
 
         <div className="flex gap-3">
           <input
@@ -231,7 +219,9 @@ const PlaceOrder = () => {
           <div className="flex flex-col gap-3 lg:flex-row">
             <div
               onClick={() => setMethod("stripe")}
-              className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
+              className={`flex items-center gap-3 border p-2 px-3 cursor-pointer ${
+                method === "stripe" ? "bg-gray-300" : ""
+              }`}
             >
               <p className={`min-w-3.5 h-3.5 `}>
                 <img
@@ -241,21 +231,12 @@ const PlaceOrder = () => {
                 />
               </p>
             </div>
-            <div
-              onClick={() => setMethod("razorpay")}
-              className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
-            >
-              <p className={`min-w-3 h-3 `}>
-                <img
-                  src={assets.razorpay_logo}
-                  className="h-5 mx-4 "
-                  alt={assets.razorpay_logo}
-                />
-              </p>
-            </div>
+
             <div
               onClick={() => setMethod("COD")}
-              className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
+              className={`flex items-center gap-3 border p-2 px-3 cursor-pointer ${
+                method === "cod" ? "bg-gray-300" : ""
+              }`}
             >
               <p className={`min-w-3 h-3 mb-3 text-gray-500 font-medium mx-4`}>
                 CASH ON DELIVERY

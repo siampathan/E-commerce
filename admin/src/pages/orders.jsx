@@ -85,7 +85,6 @@ const Orders = ({ token }) => {
                 })}
               </div>
               <p className="mt-3 mb-2 font-medium">
-                {" "}
                 {order.address.firstName + " " + order.address.lastName}{" "}
               </p>
 
@@ -107,7 +106,7 @@ const Orders = ({ token }) => {
 
             <div>
               <p className="text-sm sm:text-[15px]">
-                Items: {order.items.length}{" "}
+                Items: {order.items.length}
               </p>
               <p className="mt-3"> Method: {order.paymentMethod} </p>
               <p> Payment: {order.payment ? "Done" : "Pending"} </p>
@@ -128,7 +127,7 @@ const Orders = ({ token }) => {
               <option value="Packing">Packing</option>
               <option value="Shipped">Shipped</option>
               <option value="Out for Delivery">Out for Delivery</option>
-              <option value="Deliverd"> Deliverd </option>
+              <option value="Delivered"> Delivered </option>
             </select>
           </div>
         ))}

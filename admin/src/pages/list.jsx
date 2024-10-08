@@ -71,8 +71,13 @@ const List = ({ token }) => {
               <p>
                 {currency} {item.price}
               </p>
-              <p className="flex gap-x-4 text-right md:text-center cursor-pointer text-lg">
-                <Link to={`/update/${item._id}`}>Ed</Link>
+              <p className="flex items-center gap-x-4 text-right md:text-center cursor-pointer text-lg">
+                <Link
+                  to={`/update/${item._id}`}
+                  className="font-semibold text-4xl"
+                >
+                  &#9997;
+                </Link>
                 <span onClick={() => removeProduct(item._id)}>X</span>
               </p>
             </div>
