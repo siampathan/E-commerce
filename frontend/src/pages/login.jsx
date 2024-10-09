@@ -90,7 +90,7 @@ const Login = () => {
         required
       />
       <div className="flex justify-between w-full text-sm mt-[-8px]">
-        <p className="cursor-pointer">Forgot Your Password?</p>
+        {/* <p className="cursor-pointer">Forgot Your Password?</p> */}
         {currentState === "Login" ? (
           <p
             onClick={() => setCurrentState("Sign Up")}

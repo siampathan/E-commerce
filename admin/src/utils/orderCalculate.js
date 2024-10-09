@@ -8,12 +8,28 @@ export const filterdOrders = (orders, gender) => {
 };
 
 //Function to calculate total Quantity of Sell
+// export const totalQuantity = (orders, category) => {
+//   const filteredOrders = filterdOrders(orders, category);
+
+//   return filteredOrders.reduce((total, order) => {
+//     const menItems = order.items.filter((item) => item.category === category);
+//     return total + menItems.length; // Count the number of items
+//   }, 0);
+// };
+
 export const totalQuantity = (orders, category) => {
   const filteredOrders = filterdOrders(orders, category);
 
   return filteredOrders.reduce((total, order) => {
-    const menItems = order.items.filter((item) => item.category === category);
-    return total + menItems.length; // Count the number of items
+    const itemsInCategory = order.items.filter(
+      (item) => item.category === category
+    );
+    // Sum the quantities of items in the specified category
+    const quantitySum = itemsInCategory.reduce(
+      (sum, item) => sum + item.quantity,
+      0
+    );
+    return total + quantitySum; // Add to the total
   }, 0);
 };
 
