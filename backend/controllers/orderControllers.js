@@ -3,7 +3,7 @@ import userModel from "../models/userModel.js";
 import Stripe from "stripe";
 
 //global decl
-const currency = "BDT";
+const currency = "USD";
 const deliveryCharge = 10;
 
 //getway init
